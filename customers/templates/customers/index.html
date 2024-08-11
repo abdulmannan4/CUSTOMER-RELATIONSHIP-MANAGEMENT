@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% load static %}
+ 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://kit.fontawesome.com/5135d630a7.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .notification {
+            background-color: #0d6efd;
+            color: white;
+            text-decoration: none;
+            padding: 4px 24px;
+            margin-right: 20px;
+            margin-left: 20px;
+            position: relative;
+            display: inline-block;
+            border-radius: 2px;
+            font-size: 20px;
+        }
+
+        .notification:hover {
+            background: #0b5ed7;
+            color: #fff;
+        }
+
+        .notification .badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            padding: 8px 8px;
+            border-radius: 50%;
+            background: red;
+            color: white;
+        }
+
+        .notification-section .dropdown-toggle::after {
+            content: none;
+        }
+
+        .dropdown-toggle::after {
+            color: #fff;
+        }
+
+        #notifications-dropdown li {
+            max-width: 500px;
+            word-wrap: break-word;
+            display: inline-block;
+            white-space: normal;
+        }
+
+        #notifications-dropdown.dropdown-menu {
+            width: 15rem;
+        }
+        
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #004085;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="{% url 'customers:customer_dashboard' %}">CUSTOMERS DASHBOARD</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'customers:customer_dashboard' %}">Dashboard</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'customers:create_support_ticket' %}">Support</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'customers:create_customer' %}">Sales</a>
+      </li>
+      <li class="nav-item dropdown notification-section">
+        <a href="#" class="notification dropdown-toggle" id="navbarDropdown" role="button"
+            data-bs-toggle="dropdown" aria-expanded="true">
+            <span><i class='fa fa-bell'></i></span>
+            <span class="badge" id="notification-badge">0</span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown" id="notifications-dropdown"
+        data-popper-placement="bottom-end"
+        style="position: absolute; inset: 0px auto auto 0px; margin: 0px; transform: translate3d(-70px, 42px, 0px);">
+    
+        <!-- "Hello" item -->
+        <li class="dropdown-item">Hello</li> <li class="dropdown-item">Hello</li>
+        <li class="dropdown-item">Hello</li>
+        <hr class="dropdown-divider">
+     
+        <!-- Loop through notifications -->
+        {% for i in notifications %}
+        <li class="dropdown-item">{{ i.message }}</li>
+        <hr class="dropdown-divider">
+        {% endfor %}
+    
+    </ul>
+    </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'customers:user_profile' %}">Profile</a>
+      </li>
+      
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sales</h5>
+                    <p class="card-text">Make your sales here.</p>
+                    <a href="{% url 'customers:create_customer' %}" class="btn btn-primary">Go to Sales</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Support</h5>
+                    <p class="card-text">Need help? Contact our support team.</p>
+                    <a href="{% url 'customers:create_support_ticket' %}" class="btn btn-primary">Support Tickets</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Status Overview</h5>
+                    <p class="card-text">View the status of your tickets and sales.</p>
+                    {% if customer %}
+                        <a href="{% url 'customers:status_overview' pk=customer.id %}" class="btn btn-primary">View Status</a>
+                    {% else %}
+                        <p>No customer data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+        crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+    const notificationSocket = new WebSocket(
+        'ws://' + window.location.host + '/ws/notification/' + roomName + '/'
+    );
+
+    notificationSocket.onopen = function(e) {
+        console.log('WebSocket connection established');
+    };
+
+    notificationSocket.onmessage = function(e) {
+        const data = JSON.parse(e.data);
+        console.log('Message received:', data);
+        const notificationList = document.getElementById("notifications-dropdown");
+        notificationList.innerHTML = "<li class='dropdown-item'>" + data.message + "</li><hr class='dropdown-divider'>" + notificationList.innerHTML;
+        document.getElementById("notification-badge").innerHTML = parseInt(document.getElementById("notification-badge").innerHTML) + 1;
+    };
+
+    notificationSocket.onerror = function(e) {
+        console.error('WebSocket error:', e);
+    };
+
+    notificationSocket.onclose = function(e) {
+        console.log('WebSocket connection closed', e.code, e.reason);
+    };
+</script>
+
+    
+</body>
+</html>

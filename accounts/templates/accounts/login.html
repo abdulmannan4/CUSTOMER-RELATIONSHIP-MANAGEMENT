@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Login</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+  <style>
+    body {
+      background-color: #e9ecef;
+      margin-top: 20px;
+    }
+    .container {
+      margin-top: 70px;
+    }
+    .form-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 30px;
+      background-color: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-heading {
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: #333;
+    }
+    .form-container a {
+      color: #007bff;
+    }
+    .form-container a:hover {
+      text-decoration: underline;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border: none;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    {% load crispy_forms_tags %}
+
+    <div class="form-container">
+        <h2 class="form-heading text-center">Login</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+      <div class="mt-3 text-center">
+        <p><a href="{% url 'accounts:password_reset_request' %}">Forgot your password?</a></p>
+        <p><a href="{% url 'accounts:register' %}">Don't have an account? Register</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK3E4Tdd2K5c6l14Xogd4dUj13dOdISUjthxkU3h69l6cU5" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UOa0g8hL6kD/J5LzeedLPF5B1Jjv4d6YO+7G4XUEOihJ0Rz7sI0M4N5r1RoH2PzB" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfyyQb5STdZt3yph4thW8YQmF0P2LkZ8zD4e3z91c9E4wEx5DJ06hwzL0j5yQ5d" crossorigin="anonymous"></script>
+</body>
+</html>
