@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sales Dashboard</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .sale-item {
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin-bottom: 10px;
+      background-color: #f9f9f9;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+    .logout-btn {
+      background-color: #dc3545;
+      border: none;
+      color: #fff;
+      cursor: pointer;
+    }
+    .logout-btn:hover {
+      background-color: #c82333;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sales Dashboard</h1>
+
+  <!-- Logout Button -->
+  <p><a class="btn logout-btn" href="{% url 'accounts:logout' %}">Logout</a></p>
+
+  <div>
+    {% for sale in sales %}
+      <div class="sale-item">
+        <p><strong>{{ sale.customer }}</strong></p>
+        <p><strong>Stage:</strong> {{ sale.get_stage_display }}</p>
+        <p><strong>Amount:</strong> ${{ sale.amount }}</p>
+        <p><strong>Assigned to:</strong> {{ sale.assigned_to }}</p>
+        <p><a class="btn" href="{% url 'sales:sale_detail' sale.pk %}">View Details</a></p>
+      </div>
+    {% empty %}
+      <p>No sales opportunities available.</p>
+    {% endfor %}
+  </div>
+  <p><a class="btn" href="{% url 'sales:sale_create' %}">Create New Sale Opportunity</a></p>
+</body>
+</html>

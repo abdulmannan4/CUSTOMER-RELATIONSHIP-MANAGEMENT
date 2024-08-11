@@ -1,0 +1,162 @@
+<!-- templates/tickets/ticket_list.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Tickets</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .logout{
+            color: rgb(229, 24, 24)
+            ;
+            background-color: rgb(244, 241, 248);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Support Tickets</h1>
+       <p class="logout"><a href="{% url 'accounts:logout' %}">LOGOUT</a></p>
+        <a href="{% url 'support:ticket_create' %}" class="btn btn-primary mb-4">Create New Ticket</a>
+        
+        <!-- Tickets Overview - Open Tickets -->
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">Open Tickets</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                                <th>Created At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in open_tickets %}
+                            <tr>
+                                <td>{{ ticket.subject|truncatechars:1  }}</td>
+                                <td>{{ ticket.customer }}</td>
+                                <td>{{ ticket.status }}</td>
+                                <td>{{ ticket.assigned_to }}</td>
+                                <td>{{ ticket.created_at }}</td>
+                                <td><a href="{% url 'support:ticket_detail' pk=ticket.pk %}" class="btn btn-sm btn-info">View</a></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6">No open tickets found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Closed Tickets -->
+        <div class="card mb-4">
+            <div class="card-header bg-success text-white">
+                <h2 class="card-title mb-0">Closed Tickets</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                                <th>Created At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in closed_tickets %}
+                            <tr>
+                                <td>{{ ticket.subject }}</td>
+                                <td>{{ ticket.customer }}</td>
+                                <td>{{ ticket.status }}</td>
+                                <td>{{ ticket.assigned_to }}</td>
+                                <td>{{ ticket.created_at }}</td>
+                                <td><a href="{% url 'support:ticket_detail' pk=ticket.pk %}" class="btn btn-sm btn-info">View</a></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6">No closed tickets found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <!-- In Progress Tickets -->
+        <div class="card mb-4">
+            <div class="card-header bg-warning text-white">
+                <h2 class="card-title mb-0">In Progress Tickets</h2>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Subject</th>
+                                <th>Customer</th>
+                                <th>Status</th>
+                                <th>Assigned To</th>
+                                <th>Created At</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for ticket in in_progress_tickets %}
+                            <tr>
+                                <td>{{ ticket.subject }}</td>
+                                <td>{{ ticket.customer }}</td>
+                                <td>{{ ticket.status }}</td>
+                                <td>{{ ticket.assigned_to }}</td>
+                                <td>{{ ticket.created_at }}</td>
+                                <td><a href="{% url 'support:ticket_detail' pk=ticket.pk %}" class="btn btn-sm btn-info">View</a></td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="6">No tickets in progress found.</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <a href="{% url 'support:ticket_list' %}" class="btn btn-secondary">Back to Ticket List</a>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0oEXE3WBBQcWrupcZJbsQWj5ia21l1FdOJF51C4+7fl3"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh/jVs6fst4/hF+E79I5kY6kZ7D4h5S9QvL3W"
+            crossorigin="anonymous"></script>
+</body>
+</html>

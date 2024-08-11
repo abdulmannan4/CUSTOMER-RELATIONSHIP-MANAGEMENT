@@ -1,0 +1,105 @@
+<!-- templates/sales/sales_dashboard.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Dashboard</title>
+</head>
+<body>
+    <h1>Sales Dashboard - Tickets Overview</h1>
+    
+    <h2>Open Tickets</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in open_tickets %}
+            <tr>
+                <td>{{ ticket.subject }}</td>
+                <td>{{ ticket.customer }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.assigned_to }}</td>
+                <td>{{ ticket.created_at }}</td>
+                <td><a href="{% url 'support:ticket_detail' pk=ticket.pk %}">View</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No open tickets found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Closed Tickets</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in closed_tickets %}
+            <tr>
+                <td>{{ ticket.subject }}</td>
+                <td>{{ ticket.customer }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.assigned_to }}</td>
+                <td>{{ ticket.created_at }}</td>
+                <td><a href="{% url 'support:ticket_detail' pk=ticket.pk %}">View</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No closed tickets found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>In Progress Tickets</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Subject</th>
+                <th>Customer</th>
+                <th>Status</th>
+                <th>Assigned To</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ticket in in_progress_tickets %}
+            <tr>
+                <td>{{ ticket.subject }}</td>
+                <td>{{ ticket.customer }}</td>
+                <td>{{ ticket.status }}</td>
+                <td>{{ ticket.assigned_to }}</td>
+                <td>{{ ticket.created_at }}</td>
+                <td><a href="{% url 'support:ticket_detail' pk=ticket.pk %}">View</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6">No tickets in progress found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{% url 'support:ticket_list' %}">Back to Ticket List</a>
+    
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Detail: {{ ticket.subject }}</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <style>
+        body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">Ticket Detail</h1>
+        
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2 class="card-title mb-0">{{ ticket.subject }}</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>Status:</strong> {{ ticket.status }}</p>
+                <p><strong>Description:</strong></p>
+                <p>{{ ticket.description }}</p>
+                <p><strong>Customer:</strong> {{ ticket.customer }}</p>
+                <p><strong>Assigned To:</strong> {{ ticket.assigned_to }}</p>
+                <p><strong>Created At:</strong> {{ ticket.created_at }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{% url 'support:ticket_edit' ticket.pk %}" class="btn btn-primary mr-2">Edit</a>
+                <a href="{% url 'support:ticket_delete' ticket.pk %}" class="btn btn-danger mr-2">Delete</a>
+                <a href="{% url 'support:ticket_list' %}" class="btn btn-secondary">Back to List</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0oEXE3WBBQcWrupcZJbsQWj5ia21l1FdOJF51C4+7fl3"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh/jVs6fst4/hF+E79I5kY6kZ7D4h5S9QvL3W"
+            crossorigin="anonymous"></script>
+</body>
+</html>

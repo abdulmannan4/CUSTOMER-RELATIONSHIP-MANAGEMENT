@@ -1,0 +1,25 @@
+<!-- templates/tickets/ticket_assign.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Assign Ticket</title>
+</head>
+<body>
+    <h1>Assign Ticket</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="assigned_to">Assign To:</label>
+        <select name="assigned_to" id="assigned_to">
+            <option value="" disabled selected>Select Agent</option>
+            <!-- Populate options with your user list or agents -->
+            {% for user in agents %}
+                <option value="{{ user.pk }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Assign</button>
+    </form>
+    <a href="{% url 'support:ticket_detail' ticket.pk %}">Cancel</a>
+</body>
+</html>

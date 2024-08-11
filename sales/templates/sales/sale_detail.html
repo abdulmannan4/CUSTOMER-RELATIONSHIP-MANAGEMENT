@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sale Details</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+    h1 {
+      color: #333;
+    }
+    .sale-details {
+      border: 1px solid #ccc;
+      padding: 20px;
+      background-color: #f9f9f9;
+      max-width: 600px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 16px;
+      background-color: #007bff;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .btn:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Sale Details</h1>
+  <div class="sale-details">
+    <p><strong>Customer:</strong> {{ sale.customer }}</p>
+    <p><strong>Customer NAME:</strong> {{ sale.customer.name }}</p>
+    <p><strong>Customer Email:</strong> {{ sale.customer.email }}</p>
+    <p><strong>Customer Phone:</strong> {{ sale.customer.phone_number }}</p>
+    <p><strong>Customer Address:</strong> {{ sale.customer.address }}</p>
+    
+    <p><strong>Stage:</strong> {{ sale.get_stage_display }}</p>
+    <p><strong>Amount:</strong> ${{ sale.amount }}</p>
+    <!--<p><strong>User:</strong> {{ sale.assigned_to }}</p>-->
+    <p><strong>Notes:</strong></p>
+    <p>{{ sale.notes }}</p>
+    <p>
+      <a class="btn" href="{% url 'sales:edit_sale' sale.pk %}">Edit Sale</a>
+      <a class="btn" href="{% url 'sales:sale_list' %}">Back to Sales List</a>
+    </p>
+  </div>
+</body>
+</html>

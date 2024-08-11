@@ -1,0 +1,52 @@
+<!-- templates/tickets/ticket_confirm_delete.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm Delete Ticket</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+          crossorigin="anonymous">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .confirm-container {
+            max-width: 600px;
+            margin: auto;
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+        }
+        .btn-confirm {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="confirm-container">
+        <h1 class="mb-4">Confirm Delete Ticket</h1>
+        <p>Are you sure you want to delete "{{ ticket.subject }}"?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-confirm">Confirm</button>
+            <a href="{% url 'support:ticket_detail' ticket.pk %}" class="btn btn-secondary btn-confirm">Cancel</a>
+        </form>
+    </div>
+    
+    <!-- Bootstrap JS and dependencies (jQuery, Popper.js) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"
+            integrity="sha384-9/reFTGAW83EW2RDu2S0oEXE3WBBQcWrupcZJbsQWj5ia21l1FdOJF51C4+7fl3"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh/jVs6fst4/hF+E79I5kY6kZ7D4h5S9QvL3W"
+            crossorigin="anonymous"></script>
+</body>
+</html>
